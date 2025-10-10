@@ -1,0 +1,4 @@
+---
+description: cursor agentでgpt-5をllmとして指定しているときに、agentからのfeedbackの中で最後に必ずユーザーが具体的に次に何をしたらいいのかを明示すること。
+alwaysApply: false
+---

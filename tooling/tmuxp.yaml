@@ -1,0 +1,23 @@
+session_name: whisperplaud
+windows:
+  - window_name: cursor
+    panes:
+      - focus: true
+        shell_command:
+          - cursor .
+  - window_name: app
+    panes:
+      - shell_command:
+          - make dev
+      - shell_command:
+          - docker compose logs -f | tail -n 200
+  - window_name: agents
+    panes:
+      - shell_command:
+          - echo "Claude Code pane"
+      - shell_command:
+          - echo "Gemini CLI pane"
+  - window_name: infra
+    panes:
+      - shell_command:
+          - docker compose ps

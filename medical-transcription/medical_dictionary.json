@@ -1,0 +1,63 @@
+{
+  "diabetes": [
+    {"term": "2型糖尿病", "reading": "にがたとうにょうびょう", "aliases": ["T2DM", "Type2DM"]},
+    {"term": "1型糖尿病", "reading": "いちがたとうにょうびょう", "aliases": ["T1DM", "Type1DM"]},
+    {"term": "HbA1c", "reading": "ヘモグロビンエーワンシー", "aliases": ["ヘモグロビンA1c", "糖化ヘモグロビン"]},
+    {"term": "インスリン抵抗性", "reading": "いんすりんていこうせい"},
+    {"term": "糖尿病性腎症", "reading": "とうにょうびょうせいじんしょう", "aliases": ["DKD"]},
+    {"term": "糖尿病性網膜症", "reading": "とうにょうびょうせいもうまくしょう"},
+    {"term": "糖尿病性神経障害", "reading": "とうにょうびょうせいしんけいしょうがい"},
+    {"term": "SGLT2阻害薬", "reading": "エスジーエルティーツーそがいやく"},
+    {"term": "GLP-1受容体作動薬", "reading": "ジーエルピーワンじゅようたいさどうやく"},
+    {"term": "DPP-4阻害薬", "reading": "ディーピーピーフォーそがいやく"}
+  ],
+  
+  "novo_nordisk_medications": [
+    {"brand": "オゼンピック", "generic": "セマグルチド", "class": "GLP-1RA", "phonetic": "おぜんぴっく"},
+    {"brand": "リベルサス", "generic": "セマグルチド", "class": "GLP-1RA", "phonetic": "りべるさす"},
+    {"brand": "ウゴービ", "generic": "セマグルチド", "class": "GLP-1RA", "phonetic": "うごーび"},
+    {"brand": "ビクトーザ", "generic": "リラグルチド", "class": "GLP-1RA", "phonetic": "びくとーざ"},
+    {"brand": "サクセンダ", "generic": "リラグルチド", "class": "GLP-1RA", "phonetic": "さくせんだ"},
+    {"brand": "トレシーバ", "generic": "インスリンデグルデク", "class": "基礎インスリン", "phonetic": "とれしーば"},
+    {"brand": "フィアスプ", "generic": "インスリンアスパルト", "class": "超速効型インスリン", "phonetic": "ふぃあすぷ"},
+    {"brand": "ノボラピッド", "generic": "インスリンアスパルト", "class": "超速効型インスリン", "phonetic": "のぼらぴっど"},
+    {"brand": "ゾルトファイ", "generic": "インスリンデグルデク/リラグルチド", "class": "配合剤", "phonetic": "ぞるとふぁい"},
+    {"brand": "ライゾデグ", "generic": "インスリンデグルデク/インスリンアスパルト", "class": "配合剤", "phonetic": "らいぞでぐ"}
+  ],
+  
+  "eli_lilly_medications": [
+    {"brand": "マンジャロ", "generic": "チルゼパチド", "class": "GIP/GLP-1RA", "phonetic": "まんじゃろ"},
+    {"brand": "モンジャロ", "generic": "チルゼパチド", "class": "GIP/GLP-1RA", "phonetic": "もんじゃろ"},
+    {"brand": "トルリシティ", "generic": "デュラグルチド", "class": "GLP-1RA", "phonetic": "とるりしてぃ"},
+    {"brand": "ジャディアンス", "generic": "エンパグリフロジン", "class": "SGLT2i", "phonetic": "じゃでぃあんす"},
+    {"brand": "ベージニオ", "generic": "アベマシクリブ", "class": "CDK4/6阻害薬", "phonetic": "べーじにお"},
+    {"brand": "ヒューマログ", "generic": "インスリンリスプロ", "class": "超速効型インスリン", "phonetic": "ひゅーまろぐ"},
+    {"brand": "ヒューマリン", "generic": "ヒトインスリン", "class": "インスリン", "phonetic": "ひゅーまりん"},
+    {"brand": "バサグラー", "generic": "インスリングラルギン", "class": "基礎インスリン", "phonetic": "ばさぐらー"}
+  ],
+  
+  "cardiovascular": [
+    {"term": "心不全", "reading": "しんふぜん", "aliases": ["HF", "Heart Failure"]},
+    {"term": "心房細動", "reading": "しんぼうさいどう", "aliases": ["AF", "Afib"]},
+    {"term": "冠動脈疾患", "reading": "かんどうみゃくしっかん", "aliases": ["CAD"]},
+    {"term": "高血圧", "reading": "こうけつあつ"},
+    {"term": "動脈硬化", "reading": "どうみゃくこうか"}
+  ],
+  
+  "corrections": {
+    "オゼンビック": "オゼンピック",
+    "おぜんびっく": "オゼンピック",
+    "セマグルタイド": "セマグルチド",
+    "マンジャロー": "マンジャロ",
+    "チルゼパタイド": "チルゼパチド",
+    "トルシティ": "トルリシティ",
+    "えーわんしー": "HbA1c",
+    "ヘモグロビンA1C": "HbA1c",
+    "じーえるぴーわん": "GLP-1",
+    "えすじーえるてぃーつー": "SGLT2",
+    "しーけーでぃー": "CKD",
+    "なっしゅ": "NASH",
+    "なふるど": "NAFLD"
+  }
+}
+

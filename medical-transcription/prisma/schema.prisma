@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model File {
+  id           String   @id @default(cuid())
+  filename     String
+  originalName String
+  s3Key        String   @unique
+  s3Bucket     String
+  size         Int
+  mimeType     String
+  duration     Float?
+  status       String   @default("pending")
+  uploadedAt   DateTime @default(now())
+  processedAt  DateTime?
+
+  jobs         Job[]
+  transcripts  Transcript[]
+
+  @@index([status])
+  @@index([uploadedAt])
+}
+
+model Job {
+  id          String   @id @default(cuid())
+  fileId      String
+  type        String   // transcription, alignment, diarization, summary
+  status      String   // pending, processing, completed, failed
+  progress    Int      @default(0)
+  phase       String?
+  error       String?
+  result      String?  // JSON結果
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+
+  file        File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@index([fileId])
+  @@index([status])
+}
+
+model Transcript {
+  id            String   @id @default(cuid())
+  fileId        String   @unique
+  language      String   @default("ja")
+  text          String
+  segments      String   // JSON
+  words         String?  // JSON
+  speakers      String?  // JSON
+  summaryShort  String?
+  summaryMedium String?
+  summaryLong   String?
+  corrections   String?  // JSON - 適用された辞書補正
+  confidence    Float?
+  createdAt     DateTime @default(now())
+
+  file          File     @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@index([fileId])
+}
+
+model MedicalDictionary {
+  id          String   @id @default(cuid())
+  term        String   @unique
+  reading     String?
+  category    String   // disease, medication, general
+  subcategory String?  // diabetes, cardiovascular, etc.
+  englishTerm String?
+  aliases     String?  // JSON array
+  priority    Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([term])
+  @@index([category])
+}
+
+model Medication {
+  id           String   @id @default(cuid())
+  brandName    String   @unique
+  genericName  String?
+  manufacturer String   // novo_nordisk, eli_lilly
+  drugClass    String?  // GLP-1RA, SGLT2i, etc.
+  indications  String?  // JSON
+  phonetic     String?
+  aliases      String?  // JSON
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  @@index([manufacturer])
+  @@index([brandName])
+}
+
+model UserDictionary {
+  id          String   @id @default(cuid())
+  term        String
+  replacement String
+  context     String?
+  frequency   Int      @default(0)
+  autoApply   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  @@index([term])
+}
+
