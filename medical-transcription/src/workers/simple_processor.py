@@ -48,6 +48,51 @@ class SimpleMedicalProcessor:
         
         return corrected_text, applied_corrections
     
+    def process_transcription(self, text: str, segments: List[Dict[str, Any]]) -> Dict[str, Any]:
+        """
+        Process actual Whisper transcription with medical corrections
+        
+        Args:
+            text: Full transcription text from Whisper
+            segments: List of segments with timing information
+            
+        Returns:
+            Dict with corrected text, segments, and metadata
+        """
+        logger.info("Processing Whisper transcription with medical corrections...")
+        
+        # Apply medical corrections to full text
+        corrected_text, corrections_applied = self.apply_medical_corrections(text)
+        
+        # Apply corrections to each segment
+        corrected_segments = []
+        for segment in segments:
+            seg_text = segment.get('text', '')
+            corrected_seg_text, _ = self.apply_medical_corrections(seg_text)
+            
+            corrected_segment = {
+                'id': segment.get('id'),
+                'start': segment.get('start'),
+                'end': segment.get('end'),
+                'text': corrected_seg_text,
+                'original_text': seg_text,
+                'confidence': segment.get('confidence'),
+                'no_speech_prob': segment.get('no_speech_prob'),
+                'words': segment.get('words', [])
+            }
+            corrected_segments.append(corrected_segment)
+        
+        result = {
+            'corrected_text': corrected_text,
+            'original_text': text,
+            'segments': corrected_segments,
+            'corrections': corrections_applied,
+            'corrections_count': len(corrections_applied)
+        }
+        
+        logger.info(f"Applied {len(corrections_applied)} medical term corrections")
+        return result
+    
     def generate_simple_summary(self, text: str) -> Dict[str, str]:
         """Generate simple summaries (placeholder)"""
         word_count = len(text.split())

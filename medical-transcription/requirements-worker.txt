@@ -10,11 +10,13 @@ python-dotenv>=1.0.0
 # Using taskiq-redis as it provides BullMQ compatible worker pattern
 taskiq[redis]>=0.11.0
 
-# Audio processing - lightweight  
-# Note: Uncomment for production use (large downloads)
-# torch>=2.1.0 --index-url https://download.pytorch.org/whl/cpu
-# faster-whisper>=1.0.0
-# openai-whisper>=20231117
+# Audio processing
+# Note: For CUDA support, install torch separately:
+# pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+faster-whisper>=1.0.0
+torch>=2.1.0
 
-# Utilities
+# Audio utilities
 numpy>=1.24.0
+soundfile>=0.12.0  # For audio file handling
+librosa>=0.10.0    # For audio preprocessing

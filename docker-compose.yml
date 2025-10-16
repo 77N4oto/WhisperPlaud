@@ -7,8 +7,8 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    env_file:
-      - .env.local
+    # env_file:
+      # - .env.local
     volumes:
       - ./data:/app/data
     depends_on:
