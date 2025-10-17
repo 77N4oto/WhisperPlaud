@@ -38,8 +38,11 @@ services:
     build:
       context: ./medical-transcription
       dockerfile: Dockerfile.worker
+    runtime: nvidia  # Enable NVIDIA GPU support
     environment:
       - PYTHONPATH=/app
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
     env_file:
       - ./medical-transcription/.env.local
     depends_on:
@@ -47,6 +50,13 @@ services:
       - minio
     volumes:
       - ./medical-transcription/transcription.db:/app/transcription.db
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 volumes:
   redis_data:

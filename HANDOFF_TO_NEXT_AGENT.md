@@ -261,13 +261,61 @@ S3_REGION=us-east-1
 
 ## 🚀 開発環境のセットアップ
 
-### 1. 前提条件
+### 推奨: Docker セットアップ（簡単・確実）⭐
+
+**利点**:
+- ✅ CUDA/FFmpegの手動インストール不要
+- ✅ Python環境の手動セットアップ不要
+- ✅ 1コマンドで全サービス起動
+- ✅ 環境の完全な再現性
+
+#### 1. 前提条件
+- **Docker Desktop** for Windows
+- **NVIDIA GPU** + 最新ドライバー
+- **Node.js 20+**（Next.js開発サーバー用）
+
+#### 2. セットアップ手順
+```powershell
+# プロジェクトのクローン
+git clone https://github.com/77N4oto/WhisperPlaud.git
+cd WhisperPlaud
+
+# 環境変数の設定
+cp medical-transcription/.env.example medical-transcription/.env.local
+# .env.local を編集（HF_TOKEN を追加）
+
+# Dockerイメージのビルド
+make docker-build
+
+# すべてのサービスを起動
+make docker-up
+
+# ログ確認
+make docker-logs
+```
+
+#### 3. ブラウザで確認
+- **Web**: `http://localhost:3000/login`
+- **MinIO Console**: `http://localhost:9001`
+
+#### 詳細は `DOCKER_SETUP.md` を参照
+
+---
+
+### 従来方式: 手動セットアップ（上級者向け）
+
+<details>
+<summary>クリックして展開</summary>
+
+#### 1. 前提条件
 - **Node.js 20+**
 - **Python 3.11+**
+- **NVIDIA GPU** + **CUDA 11.8+**
+- **FFmpeg**
 - **Docker Desktop**（Redis/MinIO用）
 - **Windows 10/11**
 
-### 2. 初回セットアップ
+#### 2. 初回セットアップ
 ```powershell
 # プロジェクトのクローン
 git clone https://github.com/77N4oto/WhisperPlaud.git
@@ -287,15 +335,15 @@ python -m venv whisper-pyannote-env
 .\whisper-pyannote-env\Scripts\Activate.ps1
 pip install -r medical-transcription/requirements-worker.txt
 
-# Docker コンテナの起動
+# Docker コンテナの起動（Redis/MinIOのみ）
 docker compose up -d redis minio
 
 # 環境変数の設定
 cp medical-transcription/.env.example medical-transcription/.env.local
-# .env.local を編集（上記の「環境変数」セクション参照）
+# .env.local を編集
 ```
 
-### 3. 開発サーバーの起動
+#### 3. 開発サーバーの起動
 ```powershell
 # Terminal 1: Next.js 開発サーバー
 cd medical-transcription
@@ -304,15 +352,11 @@ npm run dev
 # Terminal 2: Python ワーカー
 .\whisper-pyannote-env\Scripts\Activate.ps1
 python medical-transcription/src/workers/transcription_worker.py
-
-# Terminal 3 (オプション): Electron
-cd medical-transcription
-npm run electron:dev
 ```
 
-### 4. ブラウザで確認
-- **Web**: `http://localhost:3000/login`
-- **Electron**: 自動起動
+詳細は `medical-transcription/SETUP_WHISPERX.md` を参照
+
+</details>
 
 ---
 
