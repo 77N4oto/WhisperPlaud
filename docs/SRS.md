@@ -4,7 +4,7 @@
 - REQ-000 デスクトップGUI: Electron 上で Next.js UI を表示。GUIから全機能を操作可能。
 - REQ-001 認証: 固定ユーザー(ENV)でログインし、JWT Cookie で保護されたダッシュボードにアクセスできること。
 - REQ-002 ファイルアップロード: GUI→S3互換(MinIO, プリサインドURL)→完了通知(PATCH)でDB登録・キュー投入。
-- REQ-003 文字起こし処理: BullMQ(job)→Pythonワーカー(faster-whisper/WhisperX/pyannote)で非同期処理し、結果をS3/DBへ保存。
+- REQ-003 文字起こし処理: BullMQ(job)→Pythonワーカー(WhisperX: 統合Whisper+話者分離)で非同期処理し、結果をS3/DBへ保存。
 - REQ-004 要約: Ollama(Llama 3.1 8B)で短/中/長の要約を生成し Transcript に保存。
 - REQ-005 医療辞書: 医療用語・薬剤辞書のCRUDと補正ロジック。ユーザー辞書の優先適用。
 - REQ-006 永続化: SQLite(Prisma)で File/Job/Transcript/MedicalDictionary/Medication/UserDictionary を管理。
@@ -51,7 +51,7 @@
 - デスクトップ: Electron（BrowserWindowでNext.jsを表示）
 - バックエンド: Next.js API Routes（Node.js 20）
 - ストレージ: SQLite（Prisma）, MinIO（S3互換）, Redis（BullMQ）
-- AI/処理: Python ワーカー（faster-whisper/WhisperX/pyannote）, Ollama Llama 3.1 8B
+- AI/処理: Python ワーカー（WhisperX: 統合Whisper+pyannote話者分離）, Ollama Llama 3.1 8B
 - OS/配布: Windows 10/11, electron-builder（NSIS）
 
 ## UIワークフロー詳細

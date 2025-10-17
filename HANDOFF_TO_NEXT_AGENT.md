@@ -32,8 +32,10 @@
 
 ### AI/処理系
 - **Python 3.11+** - ワーカープロセス
-- **faster-whisper / WhisperX** - 高速文字起こし（GPU対応）
-- **pyannote.audio** - 話者分離
+- **WhisperX** - 高速文字起こし + 話者分離統合（GPU/CUDA必須）
+  - Whisper large-v2/v3 による高精度文字起こし
+  - 単語レベルタイムスタンプ（音素アライメント）
+  - pyannote.audio による話者分離（ビルトイン）
 - **Ollama Llama 3.1 8B** - ローカルLLMによる要約生成
 
 ### 開発ツール
@@ -137,29 +139,39 @@ WhisperPlaud/
 
 ## 🚧 未完了の機能（優先順）
 
-### 1. 実際のWhisper統合 🔴 最優先
-**現在**: モック処理のみ
+### 1. WhisperX統合（実装済みコードのテスト） 🔴 最優先
+**現状**: WhisperXコード実装済み、テスト待ち
 **必要な作業**:
-- `faster-whisper` または `WhisperX` のセットアップ
-- GPU対応確認（CUDA/ROCm）
-- 実際の音声ファイル文字起こし
-- タイムスタンプ付きセグメント生成
+- GPU環境のセットアップ（CUDA 11.8+、6GB+ VRAM）
+- FFmpegインストール（`winget install ffmpeg`）
+- Hugging Face Token取得（https://huggingface.co/settings/tokens）
+- 依存関係インストール（`pip install -r requirements-worker.txt`）
+- 実際の音声ファイルでテスト実行
+
+**システム要件**:
+- NVIDIA GPU（CUDA必須）
+- 6GB+ VRAM推奨
+- FFmpeg（システムレベル）
+- HF_TOKEN環境変数
 
 **参考ファイル**:
-- `medical-transcription/src/workers/transcription_worker.py`
-- `medical-transcription/requirements-worker.txt`
+- `medical-transcription/src/workers/transcription_worker.py` ✅ WhisperX実装済み
+- `medical-transcription/requirements-worker.txt` ✅ 更新済み
 
 ---
 
-### 2. 話者分離（pyannote） 🟡 高優先度
+### 2. 話者ラベル編集UI 🟡 高優先度
+**現状**: 話者分離はWhisperXで統合済み（pyannote）
 **必要な作業**:
-- pyannote.audio の統合
-- 話者数の自動推定
-- 話者ラベルの自動割り当て
 - 話者ラベル編集UI（DetailPanel内）
+  - 自動割り当てされた"SPEAKER_00"を"医師"などに変更
+  - 話者ごとの発話時間表示
+  - 話者ごとの発言一覧表示
+- 編集結果の保存（Transcript更新）
 
 **参考**:
 - `docs/SRS.md` → REQ-011
+- WhisperXは話者分離済み、UIのみ実装が必要
 
 ---
 
